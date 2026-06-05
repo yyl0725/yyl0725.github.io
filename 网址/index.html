@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=initial-scale=1.0">
+    <title>于雨鹭的个人主页 | Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #a32228; /* 复旦红调 */
+            --secondary-color: #2b3a4a;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --accent-color: #ff2442; /* 小红书红 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-content h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .badge-container {
+            margin-top: 1rem;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0 0.2rem;
+            display: inline-block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: -2rem auto 3rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 2.5fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                margin-top: 1rem;
+            }
+        }
+
+        /* 左侧边栏 - 个人信息 */
+        .sidebar {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        /* 头像样式设置 */
+        .avatar-container {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .avatar-container img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .info-section {
+            margin-bottom: 2rem;
+        }
+
+        .info-section h3 {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+        }
+
+        .info-list strong {
+            color: #555;
+        }
+
+        /* 右侧主要内容 */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 2px solid #e0e0e0;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #111;
+        }
+
+        .item-date {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .item-sub {
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .item-details p {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        /* 链接按钮样式 */
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .work-link {
+            display: block;
+            background: #f1f3f5;
+            color: var(--secondary-color);
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid var(--primary-color);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .work-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(163,34,40,0.15);
+        }
+
+        /* 小红书表格样式 */
+        .xhs-table-container {
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .xhs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        .xhs-table th, .xhs-table td {
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .xhs-table th {
+            background: #fafafa;
+            position: sticky;
+            top: 0;
+            color: #666;
+        }
+
+        .xhs-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .xhs-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 图片原生网格展示 (读取本地 images/ 文件夹) */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-item {
+            background: #f8f9fa;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            position: relative;
+            aspect-ratio: 3 / 4;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05); /* 鼠标悬停轻微放大特效 */
+        }
+
+        .gallery-item span {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.2rem;
+            text-align: center;
+        }
+
+        /* 校园活动标签 */
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: #eef2f7;
+            color: var(--secondary-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>于雨鹭</h1>
+            <p>内容运营 & 账号运营 | 新闻传播硕士</p>
+            <div class="badge-container">
+                <span class="badge">复旦大学硕士</span>
+                <span class="badge">上海市优秀毕业生</span>
+                <span class="badge">上海市奖学金</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="avatar-container">
+                <img src="images/avatar.jpg" alt="于雨鹭的个人头像">
+            </div>
+
+            <div class="info-section">
+                <h3>基本信息</h3>
+                <ul class="info-list">
+                    <li><strong>出生年月：</strong>2002.07</li>
+                    <li><strong>民族：</strong>汉族</li>
+                    <li><strong>政治面貌：</strong>共青团员</li>
+                    <li><strong>电话：</strong>15836585997</li>
+                    <li><strong>邮箱：</strong>24210130142@m.fudan.edu.cn</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h3>教育背景</h3>
+                <ul class="info-list" style="margin-bottom: 1rem;">
+                    <li style="font-weight: bold; color: var(--primary-color);">复旦大学 (2024.09 - 2026.09)</li>
+                    <li style="font-size: 0.85rem; color:#666; margin-bottom: 0.5rem;">新闻与传播专业（硕士研究生）</li>
+                    
+                    <li style="font-weight: bold;">上海电机学院 (2020.09 - 2024.06)</li>
+                    <li style="font-size: 0.85rem; color:#666;">物流管理专业（本科）</li>
+                </ul>
+                <p style="font-size: 0.85rem; color: #555; background: #fdf2f2; padding: 0.5rem; border-radius: 6px;">
+                    <strong>在校荣誉：</strong>2024年上海市优秀毕业生；上海市奖学金；三好学生、优秀学生标兵；校/院级奖学金。
+                </p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            
+            <div class="card">
+                <h2>💼 实习经历</h2>
+                
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <span class="item-title">上海得物信息集团有限公司</span>
+                        <span class="item-date">2025.09 - 2026.01</span>
+                    </div>
+                    <div class="item-sub">增长中心 - 内容运营</div>
+                    <div class="item-details">
+                        <p><strong>内容策划与宣传：</strong>独立策划并制作图文笔记<strong>1000+条</strong>，涉及潮玩/美妆/鞋包等多品类，单条最高互动量2000+。支持新品预热、福利活动等多企划落地，个人笔记贡献占部门ROI前10的50%，有效驱动拉新与转化。</p>
+                        <p><strong>选品与素材管理：</strong>运用得物内部交易平台累计创建选品集与捞月3000+个，支撑30+小红书账号的日常选品需求。代理素材审核800+条，把控内容质量与品牌调性，确保上线内容符合风控与转化要求。</p>
+                        <p><strong>账号运营：</strong>统筹30+小红书账号的日常运营与维护，实习期内累计实现账号增粉3000+，单账号最高月曝光量2000w+。通过标准化发布流程（星光平台排期管理+搜索词创建/换捞月SOP），提升账号发布效率30%+。</p>
+                        
+                        <p style="margin-top: 1rem; font-weight: bold; color: var(--accent-color);">🔗 矩阵账号主页跳转（点击直接访问）：</p>
+                        <div class="xhs-table-container">
+                            <table class="xhs-table">
+                                <thead>
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>小红书账号名称</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/6721d11b000000001c018156?xsec_token=ABvseSZwojz7RygbU2QSNwOBJkmFHdIWYfs-ph8I9s_Xs=&xsec_source=pc_note" target="_blank">潮玩小番茄 🍅</a></td></tr>
+                                    <tr><td>2</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/6721d1a1000000001d02cbf9?xsec_token=ABvseSZwojz7RygbU2QSNwOFzO2ms5SsgN-JHPRG0hNEI=&xsec_source=pc_note" target="_blank">修狗密码 🐕</a></td></tr>
+                                    <tr><td>3</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/6721d23f000000001d02e326?xsec_token=ABvseSZwojz7RygbU2QSNwOEeEaKBtndAphuu7DRyG0as=&xsec_source=pc_note" target="_blank">泡泡鱼寻宝中 🐟</a></td></tr>
+                                    <tr><td>4</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/67242d63000000001c018770?xsec_token=ABYuRtrOM6Bych3gpGpbRo8enyfNeA8YxHd603bxmTGzM=&xsec_source=pc_note" target="_blank">蜜蜂酱拆盒不非酋</a></td></tr>
+                                    <tr><td>5</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/6721d23f000000001d02e31c?xsec_token=ABvseSZwojz7RygbU2QSNwOITSnVIo2owhKTh-gX1IMuM=&xsec_source=pc_note" target="_blank">ZIMOMO（乌冬版 🍜 ）</a></td></tr>
+                                    <tr><td>6</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/67242d62000000001d02c075?xsec_token=ABYuRtrOM6Bych3gpGpbRo8QKaiPveGdM2ibaP2uggW5w=&xsec_source=pc_note" target="_blank">🍇 葡萄冰萃</a></td></tr>
+                                    <tr><td>7</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/6721d3df000000001c01a707?xsec_token=ABvseSZwojz7RygbU2QSNwOHRTwFxYurOLjxlaBtVGekE=&xsec_source=pc_note" target="_blank">布丁小狗 🍮</a></td></tr>
+                                    <tr><td>9</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/6721d3de000000001d02f096?xsec_token=ABvseSZwojz7RygbU2QSNwOI1BIMuL4mQ3JLGX6qL0gjc=&xsec_source=pc_note" target="_blank">勤劳小辣椒 🌶</a></td></tr>
+                                    <tr><td>10</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/6721d4bd000000001c019061?xsec_token=ABvseSZwojz7RygbU2QSNwOHI5XAuj1LpLPOQOdX3o0WM=&xsec_source=pc_note" target="_blank">加辣酸菜鱼 🐟</a></td></tr>
+                                    <tr><td>11</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/674d899b000000001d02cf0e?xsec_token=ABNj2LbFA8uPqX7TdGB9HD51AofueMbI73XK1CT4Sw8OA=&xsec_source=pc_note" target="_blank">小熊甜筒 🍦</a></td></tr>
+                                    <tr><td>12</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/674d8a0f000000001d02d83d?channel_type=web_note_detail_r10&xsec_token=ABNj2LbFA8uPqX7TdGB9HD53RHdEHgGZaTeFp__K0Y340%3D&xsec_source=pc_note" target="_blank">脆皮五花 🐷</a></td></tr>
+                                    <tr><td>14</td><td><a class="xhs-link" href="https://www.xhs.com/user/profile/674d8ef7000000001d02ec04?channel_type=web_note_detail_r10&xsec_token=ABNj2LbFA8uPqX7TdGB9HD59qfPGRxEt_nyy_KE9VxQi4%3D&xsec_source=pc_note" target="_blank">闪电 ⚡ 泡芙</a></td></tr>
+                                    <tr><td>15</td><td><a class="xhs-link" href="https://xiaohongshu.com/user/profile/674d8f5f000000001d02f406?channel_type=web_note_detail_r10&xsec_token=ABNj2LbFA8uPqX7TdGB9HD5-MDFk2nfAYWVVlF2WH5PdU%3D&xsec_source=pc_note" target="_blank">屁屁桃 🍑</a></td></tr>
+                                    <tr><td>19</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/678f51ea000000000d0080dd?xsec_token=AB5TtB1c1mh34jGn2b_io94EKokSmyaVlZXRKIRZf1kS4=&xsec_source=pc_note" target="_blank">小鱼 🐟 吃果果</a></td></tr>
+                                    <tr><td>20</td><td><a class="xhs-link" href="https://xiaohongshu.com/user/profile/67c6dae90000000018022e1b?channel_type=web_note_detail_r10&xsec_token=ABKlRQ9ag6xibQoiBmtbZB32A3NoYdMaEe2Tzs7zmCA0M%3D&xsec_source=pc_note" target="_blank">小小莓烦恼 🍓</a></td></tr>
+                                    <tr><td>21</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/67c6db6100000000180233bc?xsec_token=ABKlRQ9ag6xibQoiBmtbZB310oldy3oAYEVtDqid_CBPk=&xsec_source=pc_note" target="_blank">甜心兔兔 🐇</a></td></tr>
+                                    <tr><td>26</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/68babeb4000000000302cdc3?xsec_token=ABMTET1Yd-0IAkV4wsMRu5-JbVeWgxDNEPyF_zwVji9gk=&xsec_source=pc_search" target="_blank">星星酱 ⭐</a></td></tr>
+                                    <tr><td>27</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/68beaa91000000000803a2ae?xsec_token=ABq5LntSo4dU5pZnI03brgfBMRiQqvNlW68BJfb3WeFRo=&xsec_source=pc_note" target="_blank">Molly欧皇站</a></td></tr>
+                                    <tr><td>28</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/68beaad4000000000302d581?xsec_token=ABq5LntSo4dU5pZnI03brgfF88k5iFmsFenGNpCPWEhQU=&xsec_source=pc_note" target="_blank">潮玩捕手喵 🐱</a></td></tr>
+                                    <tr><td>29</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/68beaacb00000000050017c5?xsec_token=ABq5LntSo4dU5pZnI03brgfCWWqhQkLq4eehlSO58PpNE=&xsec_source=pc_note" target="_blank">🔍 玩潮实验室小悠</a></td></tr>
+                                    <tr><td>30</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/67a99f8a000000000601f7aa?xsec_token=ABsYVrvko_UN1Dhc6CLOdjzkJvACgXbo91GfqQA2VC1To=&xsec_source=pc_note" target="_blank">🍬 云拆盒小甜豆</a></td></tr>
+                                    <tr><td>31</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/6915a1d8000000003101ea95?xsec_token=AB0VNen47vw1Yu-9x0WZMVsusslqBm1_cYKO5xcXlSJvY%3D&xsec_search" target="_blank">芋泥啵啵 🍠</a></td></tr>
+                                    <tr><td>32</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/6928025e0000000030031f05?xsec_token=ABsh7xNl0_-Lwsrg-MvsDuCeHGvSGbA9mLjvBz1Mo-G1A%3D&xsec_source=pc_note" target="_blank">芝士年糕 🥞</a></td></tr>
+                                    <tr><td>33</td><td><a class="xhs-link" href="https://www.xiaohongshu.com/user/profile/69280310000000003002bbb0?xsec_token=ABsh7xNl0_-Lwsrg-MvsDuCba7zmDm7lwUzbAEGs52bJg%3D&xsec_source=pc_note" target="_blank">辣辣辣妹日记 🌶 ️</a></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p style="margin-top: 1rem; font-weight: bold; color: #555;">🖼️ 运营期间策划图文/视觉物料原图展示：</p>
+                        <div class="image-gallery">
+                            <div class="gallery-item"><img src="images/潮鞋.png" alt="得物选品-鞋类"><span>多品类物料</span></div>
+                            <div class="gallery-item"><img src="奢包.jpg" alt="得物选品-包袋"><span>多品类物料</span></div>
+                            <div class="gallery-item"><img src="香水1.jpg" alt="得物选品-美妆"><span>多品类物料</span></div>
+                            <div class="gallery-item"><img src="香水2.jpg" alt="得物选品-美妆"><span>多品类物料</span></div> 
+                            <div class="gallery-item"><img src="名人同款1.jpg" alt="名人同款"><span>多品类物料</span></div>
+                            <div class="gallery-item"><img src="名人同款2.jpg" alt="名人同款"><span>多品类物料</span></div>                                                   
+                            <div class="gallery-item"><img src="名人同款3.jpg" alt="名人同款"><span>多品类物料</span></div>
+                            <div class="gallery-item"><img src="名人同款4.jpg" alt="名人同款"><span>多品类物料</span></div>
+                            <div class="gallery-item"><img src="福利活动1.jpg" alt="福利活动"><span>上上签抽奖福利活动</span></div>
+                            <div class="gallery-item"><img src="福利活动2.jpg" alt="福利活动"><span>潮玩品类活动预热</span></div>
+                            <div class="gallery-item"><img src="福利活动3.jpg" alt="福利活动"><span>上上签抽奖福利活动</span></div>
+                            <div class="gallery-item"><img src="福利活动4.jpg" alt="福利活动"><span>上上签抽奖福利活动</span></div>
+                            <div class="gallery-item"><img src="新品预热1.jpg" alt="潮玩品类"><span>潮玩品类活动预热</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <span class="item-title">上海道客网络科技有限公司</span>
+                        <span class="item-date">2025.03 - 2025.06</span>
+                    </div>
+                    <div class="item-sub">市场部实习生</div>
+                    <div class="item-details">
+                        <p><strong>账号运营与内容创作：</strong>运营4个账号（总粉丝5.8w），实习期净增粉丝150+；独立撰写发布10+篇公众号推文，聚焦公司技术团队在世界云原生技术大会KubeCon的讲座及自办活动等；同时参与企业宣传册的内容更新与设计。</p>
+                        <p><strong>市场调研与活动执行：</strong>进行算力资源市场调研，收集分析40+份竞品信息，为产品定价提供数据支撑。统筹100+人规模的活动，负责宣发、物料、讲师对接、直播和现场协调等，直接促成与多家意向企业的后续合作建联。</p>
+                        
+                        <p style="margin-top: 1rem; font-weight: bold; color: var(--primary-color);">📑 撰写发表公众号代表作（点击可跳转原文）：</p>
+                        <div class="link-grid">
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/86x5AKhTZOM23bfLURVCJw" target="_blank">🔥 DeepSeek 推理效率优化 Meetup</a>
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/RXOBe5K8mDP-0jeviHwqzA" target="_blank">🌐 KubeCon EU 2025 | 伦敦桥上云原生 AI (大号)</a>
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/9z2dzy_A-PZ_l18uunLx3Q" target="_blank">🌐 KubeCon EU 2025 | 伦敦桥上云原生 AI (小号)</a>
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/a1QknCA9AK3dEXB9FjYddQ" target="_blank">⚡ 开源技术驱动 DeepSeek 推理效率升级</a>
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/QW9A0yT-NHi3sj8Of1rq1A" target="_blank">🚀 DaoCloud 前沿方案解锁“AI +云原生”新范式</a>
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/QnGNFf446REwixEKgy21ig" target="_blank">⚓ 共赴 KubeCon 中国 2025 维多利亚港之约</a>
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/DX2bpL0dRRCO1kiSzm2YHQ" target="_blank">🌍 当金砖湾流汇入波斯湾：AI 基础设施新锚点</a>
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/1_wYAPDY4pMku13VDD-2Lg" target="_blank">💰 选贵不如选对：A100 算力 6 折深度攻略</a>
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/UQKY_xmMPSHld6ZHu-nz1w" target="_blank">🤝 沪港企业家圆桌会 | 联动赋能 AI 创新</a>
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/h_GJ2wgGhh7_5O0vPqSoZA" target="_blank">🌸 清明 | 一舟载春烟，半山藏旧岁</a>
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/cNH-YUgxSPjrGtjatE0Sbg" target="_blank">🔋 5.1 | 打工人充电模式已解锁！</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card">
+                <h2>🚀 项目/作品经历</h2>
+                
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <span class="item-title">世界顶尖科学家论坛</span>
+                        <span class="item-date">2024.09 - 2024.10</span>
+                    </div>
+                    <div class="item-sub">采写记者</div>
+                    <div class="item-details">
+                        <p><strong>对象分析与采访：</strong>梳理诺奖得主安德烈·盖姆的经历与过往报道，拟定差异化采访提纲；现场负责采访记录与摄像。</p>
+                        <p><strong>项目成果：</strong>在《人民日报》大江东发表《安德烈·盖姆：科研不是"哈利·波特"，但更能创造奇迹》，浏览量<strong>30万+</strong>。</p>
+                        <a class="work-link" style="margin-top: 0.5rem; display: inline-block; width: auto;" href="https://www.peopleapp.com/column/30047126567-500005865905" target="_blank">📰 点击阅读《人民日报》见报报道原文</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <span class="item-title">中信和业宣传</span>
+                        <span class="item-date">2024.10 - 2024.11</span>
+                    </div>
+                    <div class="item-sub">账号运营</div>
+                    <div class="item-details">
+                        <p><strong>内容策划与执行：</strong>制定并落地10-11月公众号月度规划，设计SVG互动、长图文等多形态内容。撰写公众号推文及视频号脚本，结合企业定位和发展规划，从楼宇设计、智慧运维、绿色低碳等提炼品牌故事，创新打造企业IP形象。</p>
+                        <p><strong>项目成果：</strong>在中信和业公众号发布推文，阅读量<strong>4000+</strong>；在视频号发布视频，点赞和转发量<strong>580+</strong>。</p>
+                        <div class="link-grid">
+                            <a class="work-link" href="https://mp.weixin.qq.com/s/qshrIumU9EdI_PrCjaWKOA" target="_blank">🌆 微信代表作：打卡城市天际线，探索中信和业创新之路</a>
+                        </div>
+                        <div class="image-gallery" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); margin-top: 0.8rem;">
+                            <div class="gallery-item" style="aspect-ratio: 16/9;">
+                                <img src="images/citic_infographic.jpg" alt="中信和业长图文物料">
+                                <span>宣传长图/SVG互动视觉设计</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="item-header">
+                        <span class="item-title">自媒体孵化与个人运营</span>
+                        <span class="item-date">长期</span>
+                    </div>
+                    <div class="item-sub">垂直内容探索</div>
+                    <div class="item-details">
+                        <p>多平台个人自媒体深度运营实践，具备敏锐的内容嗅觉与高水准的网感，熟悉主流内容平台的底层推荐逻辑。</p>
+                        <p style="margin-top: 0.5rem; font-weight: bold;">📱 点击直达个人自媒体主页：</p>
+                        <div class="link-grid" style="grid-template-columns: 1fr 1fr;">
+                            <a class="work-link" style="border-left-color: var(--accent-color);" href="https://www.xiaohongshu.com/user/profile/6373a23b000000002401710b?xsec_token=AB1ITgwSKhxF8MFSfph1rmB-aOwVns-UFkwzz4Uq9Cm5Y%3D&xsec_source=pc_search" target="_blank">📕 小红书主页 1：十一</a>
+                            <a class="work-link" style="border-left-color: var(--accent-color);" href="https://www.xiaohongshu.com/user/profile/5f43242c0000000001005120" target="_blank">📕 小红书主页 2：ooooooooi</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card">
+                <h2>🏅 校园活动与组织经验</h2>
+                <div class="tag-container">
+                    <span class="tag">✨ 世界顶尖科学家协会对谈诺奖得主安德烈·盖姆</span>
+                    <span class="tag">🎵 参与组织新闻学院草坪音乐会</span>
+                    <span class="tag">🏀 组织商学院女子篮球赛</span>
+                    <span class="tag">🎨 参与组织商学院文化节</span>
+                    <span class="tag">👥 作为代表参加学校团代会</span>
+                    <span class="tag">🏆 荣获多项校院级创新创业及学术比赛奖项</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
